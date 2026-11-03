@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>fobia</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;800&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#141a33; --deep:#0d1226; --mint:#8ff0d2; --haze:#9aa3c7; }
+  * { margin:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body {
+    background: radial-gradient(120% 90% at 50% 110%, #1f2a55 0%, var(--ink) 45%, var(--deep) 100%);
+    color: var(--mint);
+    font-family: "Unbounded", system-ui, sans-serif;
+    display:grid; place-items:center; text-align:center; padding:2rem; overflow:hidden;
+  }
+  h1 { font-weight:800; font-size: clamp(4rem, 19vw, 15rem); letter-spacing:-0.04em; line-height:1; }
+  h1 span { display:inline-block; animation: shiver 2.6s infinite; }
+  h1 span:nth-child(2){ animation-delay:.35s } h1 span:nth-child(3){ animation-delay:.9s }
+  h1 span:nth-child(4){ animation-delay:.2s } h1 span:nth-child(5){ animation-delay:1.3s }
+  @keyframes shiver {
+    0%,86%,100% { transform:none }
+    88% { transform: translate(-2px,1px) rotate(-2deg) }
+    90% { transform: translate(2px,-1px) rotate(1.5deg) }
+    92% { transform: translate(-1px,0) }
+  }
+  p { margin-top:1.5rem; font-weight:300; color:var(--haze); font-size: clamp(.95rem, 2.4vw, 1.15rem); }
+  @media (prefers-reduced-motion: reduce) { h1 span { animation:none } }
+</style>
+</head>
+<body>
+  <main>
+    <h1 aria-label="fobia"><span>f</span><span>o</span><span>b</span><span>i</span><span>a</span></h1>
+    <p>Скоро здесь появится сайт о моих проектах.</p>
+  </main>
+</body>
+</html>
