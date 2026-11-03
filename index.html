@@ -171,6 +171,20 @@ footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1
 .lightbox .lb-cap{font-family:var(--hand);font-size:1.8rem;color:var(--ink);text-align:center;padding:.4rem 0 .6rem}
 .lightbox .lb-close{position:absolute;top:-18px;right:-14px;width:44px;height:44px;border-radius:50%;background:var(--pink);color:var(--ink);font-family:var(--hand);font-size:1.8rem;line-height:1;box-shadow:0 4px 12px rgba(0,0,0,.5)}
 
+
+/* ---------- games ---------- */
+.games{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:2.4rem;align-items:start}
+.console{--bg:#2d2a36;padding:1rem 1rem 1.1rem;color:var(--chalk)}
+.console-top{display:flex;justify-content:space-between;font-size:1rem;color:#bdb6cc;margin-bottom:.6rem}
+.console-top span:first-child{font-family:var(--hand);font-size:1.5rem;color:var(--pink);line-height:1}
+#game{display:block;width:100%;height:auto;aspect-ratio:360/420;background:#15141a;border-radius:6px;touch-action:none;cursor:pointer}
+.console-hint{font-size:1rem;color:#a39cb3;margin-top:.6rem;text-align:center}
+.console-hint b{color:var(--yellow)}
+.game-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:2rem}
+.cart{margin:.6rem 0;aspect-ratio:4/3;background:#25222b;border-radius:8px 8px 4px 4px;display:grid;place-items:center;font-family:var(--hand);font-size:1.8rem;color:var(--paper);
+  background-image:repeating-linear-gradient(90deg,transparent 0 12px,rgba(255,255,255,.05) 12px 14px);box-shadow:inset 0 -14px 0 #1a1820}
+@media (max-width:760px){.games{grid-template-columns:1fr}.console{max-width:420px;width:100%;justify-self:center}}
+
 /* ---------- responsive ---------- */
 @media (max-width:980px){
   .board{grid-template-columns:1fr 1fr}
@@ -207,7 +221,7 @@ footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1
     <svg viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true"><path d="M2 11 C40 4, 90 6, 150 5 S190 4,198 3 M10 14 C60 9,120 10,170 8" fill="none" stroke="#f1ecf7" stroke-width="2.4" stroke-linecap="round"/></svg>
   </a>
   <nav>
-    <a href="#ideas">Ideas</a><a href="#photos">Photos</a><a href="#music">Music</a><a href="#videos">Videos</a><a class="circle" href="#about">About</a>
+    <a href="#ideas">Ideas</a><a href="#photos">Photos</a><a href="#music">Music</a><a href="#videos">Videos</a><a href="#games">Games</a><a class="circle" href="#about">About</a>
     <a class="donate" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener" title="support the artist ♡">Donate ♡</a>
   </nav>
 </header>
@@ -279,6 +293,21 @@ footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1
     <div class="vcard torn pink r1"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="clouds"></svg><span class="pbtn"></span></div><p>blossom wind · soon</p></div>
     <div class="vcard torn r2"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="stairs"></svg><span class="pbtn"></span></div><p>fragment #6 · soon</p></div>
     <div class="vcard torn pink r5"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="rain"></svg><span class="pbtn"></span></div><p>wet asphalt · soon</p></div>
+  </div>
+</section>
+
+<section class="block" id="games">
+  <h2 class="h"><svg viewBox="0 0 32 32"><path d="M9 10h14a6 6 0 0 1 6 6v2a5 5 0 0 1-9 3h-8a5 5 0 0 1-9-3v-2a6 6 0 0 1 6-6z"/><path d="M9 14v6M6 17h6"/><circle cx="21" cy="15" r="1"/><circle cx="24" cy="18" r="1"/></svg>Games <small>small things you can play</small></h2>
+  <div class="games">
+    <div class="console torn r3">
+      <div class="console-top"><span>fragments.exe</span><span id="gScore">score 0 · best 0</span></div>
+      <canvas id="game" width="360" height="420" aria-label="Mini game: catch the notes, dodge the fears"></canvas>
+      <p class="console-hint">catch the <b>♪</b> notes, dodge the <b>!</b> fears · drag, mouse or ← →</p>
+    </div>
+    <div class="game-cards">
+      <div class="vcard torn r2" style="--bg:var(--lilac)"><span class="label">cartridge #1</span><div class="cart">untitled game</div><p>in progress · soon</p></div>
+      <div class="vcard torn r5" style="--bg:var(--yellow)"><span class="label">cartridge #2</span><div class="cart">???</div><p>just an idea for now</p></div>
+    </div>
   </div>
 </section>
 
@@ -430,6 +459,68 @@ document.querySelectorAll("[data-yt]").forEach(el=>{
 $("lbClose").onclick=closeVideo;
 lb.addEventListener("click",e=>{ if(e.target===lb) closeVideo(); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&lb.classList.contains("open")) closeVideo(); });
+
+/* ---------- mini game: fragments ---------- */
+(()=>{
+  const cv=$("game"), c=cv.getContext("2d"), W=360, H=420;
+  let state="idle", score=0, lives=3, items=[], px=W/2, t=0, spawn=0, speed=1.6, keys={}, raf=null, flash=0;
+  let best=0; try{ best=+localStorage.getItem("fobia-best")||0; }catch(e){}
+  const hud=()=>$("gScore").textContent=`score ${score} · best ${best}`; hud();
+  const font=s=>`${s}px Caveat, "Patrick Hand", cursive`;
+  function screen(title,sub){
+    draw(); c.fillStyle="rgba(21,20,26,.72)"; c.fillRect(0,0,W,H);
+    c.textAlign="center"; c.fillStyle="#e7a3b3"; c.font=font(46); c.fillText(title,W/2,H/2-10);
+    c.fillStyle="#d9d3e6"; c.font=font(26); c.fillText(sub,W/2,H/2+30);
+  }
+  function cassette(x,y){
+    c.save(); c.translate(x,y);
+    c.fillStyle="#3a3644"; c.fillRect(-34,-20,68,40); c.fillStyle="#e7a3b3"; c.fillRect(-28,-15,56,18);
+    c.fillStyle="#1a1920"; c.fillRect(-20,6,40,10);
+    c.strokeStyle="#ddd"; c.lineWidth=2; c.setLineDash([2,2]);
+    [-11,11].forEach(dx=>{ c.beginPath(); c.arc(dx,11,4,t/6,t/6+6.3); c.stroke(); });
+    c.restore(); c.setLineDash([]);
+  }
+  function draw(){
+    c.fillStyle="#15141a"; c.fillRect(0,0,W,H);
+    c.fillStyle="rgba(255,255,255,.05)"; for(let i=0;i<14;i++) c.fillRect((i*67+t*.3)%W,(i*53)%H,2,2);
+    items.forEach(it=>{
+      c.save(); c.translate(it.x,it.y); c.rotate(Math.sin((t+it.x)/20)*.2);
+      if(it.good){ c.fillStyle=it.col; c.font=font(36); c.textAlign="center"; c.fillText(it.ch,0,12); }
+      else { c.fillStyle="#2b2932"; c.strokeStyle="#e0849c"; c.lineWidth=2.5; c.beginPath(); c.arc(0,0,15,0,7); c.fill(); c.stroke();
+        c.fillStyle="#e0849c"; c.font=font(28); c.textAlign="center"; c.fillText("!",0,9); }
+      c.restore();
+    });
+    if(flash>0){ c.fillStyle=`rgba(224,132,156,${flash/30})`; c.fillRect(0,0,W,H); flash--; }
+    cassette(px,H-34);
+    c.fillStyle="#e7a3b3"; c.font=font(26); c.textAlign="left"; c.fillText("♥".repeat(lives),12,30);
+    c.textAlign="right"; c.fillStyle="#d9d3e6"; c.fillText(score,W-12,30);
+  }
+  function loop(){
+    t++; if(keys.ArrowLeft) px-=6; if(keys.ArrowRight) px+=6; px=Math.max(34,Math.min(W-34,px));
+    if(--spawn<=0){ const good=Math.random()>.3;
+      items.push({x:20+Math.random()*(W-40),y:-20,v:speed*(.8+Math.random()*.6),good,ch:"♪♫♩"[Math.floor(Math.random()*3)],col:["#e8d38b","#a2b9d6","#b9a8dc"][Math.floor(Math.random()*3)]});
+      spawn=Math.max(16,46-score/2); }
+    items.forEach(it=>it.y+=it.v);
+    items=items.filter(it=>{
+      if(it.y>H-56 && it.y<H-10 && Math.abs(it.x-px)<40){
+        if(it.good){ score++; speed=1.6+score*.05; } else { lives--; flash=18; }
+        hud(); return false; }
+      return it.y<H+30;
+    });
+    if(lives<=0){ state="over"; if(score>best){ best=score; try{localStorage.setItem("fobia-best",best);}catch(e){} } hud();
+      screen("game over",`${score} notes · tap to retry`); return; }
+    draw(); raf=requestAnimationFrame(loop);
+  }
+  function start(){ if(state==="play") return; state="play"; score=0; lives=3; items=[]; speed=1.6; spawn=0; hud(); cancelAnimationFrame(raf); loop(); }
+  function toX(e){ const r=cv.getBoundingClientRect(); px=(e.clientX-r.left)/r.width*W; }
+  cv.addEventListener("pointerdown",e=>{ toX(e); start(); });
+  cv.addEventListener("pointermove",e=>{ if(state==="play" && (e.pointerType==="mouse"||e.buttons)) toX(e); });
+  cv.tabIndex=0;
+  cv.addEventListener("keydown",e=>{ if(["ArrowLeft","ArrowRight"," "].includes(e.key)) e.preventDefault(); keys[e.key]=true; if(e.key===" "||e.key==="Enter") start(); });
+  cv.addEventListener("keyup",e=>keys[e.key]=false);
+  document.fonts?.ready.then(()=>{ if(state==="idle") screen("fragments","tap to play"); });
+  screen("fragments","tap to play");
+})();
 
 load(0);
 </script>
