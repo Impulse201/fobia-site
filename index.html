@@ -517,10 +517,7 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&lb.classList.conta
     if(state==="paused"){ state="play"; cancelAnimationFrame(raf); loop(); return; }
     state="play"; score=0; lives=3; items=[]; speed=1.6; spawn=0; hud(); cancelAnimationFrame(raf); loop(); }
   function pause(){ if(state!=="play") return; state="paused"; cancelAnimationFrame(raf); keys={}; screen("paused","tap to continue"); }
-  cv.addEventListener("pointerleave",e=>{ if(e.pointerType==="mouse") pause(); });
   cv.addEventListener("blur",pause);
-  document.addEventListener("visibilitychange",()=>{ if(document.hidden) pause(); });
-  new IntersectionObserver(es=>es.forEach(en=>{ if(!en.isIntersecting) pause(); }),{threshold:.4}).observe(cv);
   function toX(e){ const r=cv.getBoundingClientRect(); px=(e.clientX-r.left)/r.width*W; }
   cv.addEventListener("pointerdown",e=>{ cv.focus({preventScroll:true}); toX(e); start(); });
   cv.addEventListener("pointermove",e=>{ if(state==="play" && (e.pointerType==="mouse"||e.buttons)) toX(e); });
