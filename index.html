@@ -141,7 +141,13 @@ section.block{padding:3.5rem 0 1rem}
 .about .sign{font-family:var(--hand);font-size:2.2rem;margin-top:1rem}
 .links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
 .links a{font-family:var(--hand);font-size:1.6rem;padding:.1rem .9rem;border:2px solid var(--ink);border-radius:20px 14px 22px 16px;text-decoration:none}
-.links a:hover{background:var(--yellow)}
+.links a{background:var(--c);--c:var(--yellow);box-shadow:0 3px 0 var(--ink);transition:transform .15s}
+.links a.pink{--c:var(--pink)} .links a.blue{--c:var(--blue)} .links a.lilac{--c:var(--lilac)}
+.links a:nth-child(odd){transform:rotate(-2deg)} .links a:nth-child(even){transform:rotate(2deg)}
+.links a:hover{transform:translateY(-3px) rotate(0)}
+.find{font-family:var(--hand);font-size:1.8rem;margin-top:1.2rem}
+.foot-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem 1.4rem;margin-bottom:.8rem}
+.foot-links a{text-decoration:none;color:var(--chalk)} .foot-links a:hover{color:var(--accent)}
 footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1.5rem;color:#8f899c}
 
 /* ---------- responsive ---------- */
@@ -270,13 +276,14 @@ footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1
   <div class="about torn r3">
     <p>Hi, I'm fobia. I make music, take photos, cut short videos, build small games and collect more ideas than I'll ever finish.</p>
     <p>This board is where all of it ends up: sketches, loops, fragments and the occasional finished thing.</p>
-    <div class="links"><a href="https://github.com/Impulse201" rel="noopener">GitHub</a></div>
+    <p class="find">find me here:</p>
+    <div class="links"><a class="pink" href="https://t.me/undead_t" target="_blank" rel="noopener me">Telegram</a><a class="yellow" href="https://www.youtube.com/@Impulse201" target="_blank" rel="noopener me">YouTube</a><a class="blue" href="https://www.tiktok.com/@impulse201" target="_blank" rel="noopener me">TikTok</a><a class="lilac" href="https://www.instagram.com/fragmentsofbrain/" target="_blank" rel="noopener me">Instagram</a><a class="pink" href="https://coub.com/impulse201" target="_blank" rel="noopener me">Coub</a><a class="yellow" href="https://github.com/Impulse201" target="_blank" rel="noopener me">GitHub</a></div>
     <div class="sign">— fobia</div>
   </div>
 </section>
 </main>
 
-<footer>made at night · fobia.me</footer>
+<footer><div class="foot-links"><a href="https://t.me/undead_t" target="_blank" rel="noopener">Telegram</a><a href="https://www.youtube.com/@Impulse201" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@impulse201" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/fragmentsofbrain/" target="_blank" rel="noopener">Instagram</a><a href="https://coub.com/impulse201" target="_blank" rel="noopener">Coub</a><a href="https://github.com/Impulse201" target="_blank" rel="noopener">GitHub</a></div>made at night · fobia.me</footer>
 </div>
 
 <script>
