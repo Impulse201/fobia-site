@@ -3,39 +3,381 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>fobia</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+<title>fobia.me</title>
+<meta name="description" content="fobia — music, photos, short videos, games and half-finished ideas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📼</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
-  :root { --ink:#141a33; --deep:#0d1226; --mint:#8ff0d2; --haze:#9aa3c7; }
-  * { margin:0; box-sizing:border-box; }
-  html,body { height:100%; }
-  body {
-    background: radial-gradient(120% 90% at 50% 110%, #1f2a55 0%, var(--ink) 45%, var(--deep) 100%);
-    color: var(--mint);
-    font-family: "Unbounded", system-ui, sans-serif;
-    display:grid; place-items:center; text-align:center; padding:2rem; overflow:hidden;
-  }
-  h1 { font-weight:800; font-size: clamp(4rem, 19vw, 15rem); letter-spacing:-0.04em; line-height:1; }
-  h1 span { display:inline-block; animation: shiver 2.6s infinite; }
-  h1 span:nth-child(2){ animation-delay:.35s } h1 span:nth-child(3){ animation-delay:.9s }
-  h1 span:nth-child(4){ animation-delay:.2s } h1 span:nth-child(5){ animation-delay:1.3s }
-  @keyframes shiver {
-    0%,86%,100% { transform:none }
-    88% { transform: translate(-2px,1px) rotate(-2deg) }
-    90% { transform: translate(2px,-1px) rotate(1.5deg) }
-    92% { transform: translate(-1px,0) }
-  }
-  p { margin-top:1.5rem; font-weight:300; color:var(--haze); font-size: clamp(.95rem, 2.4vw, 1.15rem); }
-  @media (prefers-reduced-motion: reduce) { h1 span { animation:none } }
+:root{
+  --board:#18171d; --board2:#201e27;
+  --paper:#ebe5d8; --ink:#25222b; --ink-soft:#6e6878; --line:#b8b1a3;
+  --pink:#e7a3b3; --yellow:#e8d38b; --blue:#a2b9d6; --lilac:#b9a8dc;
+  --accent:#e0849c; --chalk:#d9d3e6;
+  --hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --body:"Patrick Hand","Segoe Print","Comic Sans MS",cursive;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;background:#18171d}
+body{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(90% 60% at 30% 0%, var(--board2), var(--board));
+  background-attachment:fixed; background-color:var(--board);
+  color:var(--chalk); font-family:var(--body); font-size:1.15rem; line-height:1.45;
+  min-height:100vh; overflow-x:hidden;
+}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.25rem}
+
+/* ---------- header ---------- */
+header{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.6rem 0 1rem}
+.logo{font-family:var(--hand);font-weight:700;font-size:3.2rem;line-height:1;text-decoration:none;position:relative;color:#f1ecf7}
+.logo sup{color:var(--accent);font-size:.6em}
+.logo svg{position:absolute;left:-4px;bottom:-12px;width:105%;height:16px}
+nav{display:flex;gap:clamp(.8rem,3vw,2.4rem);flex-wrap:wrap}
+nav a{font-family:var(--hand);font-size:2rem;text-decoration:none;position:relative}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--accent);border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+nav a:hover::after{transform:scaleX(1)}
+nav a.circle{border:2px solid var(--chalk);border-radius:50% 45% 52% 48%;padding:0 .7rem}
+
+/* ---------- paper primitives ---------- */
+.torn{position:relative;isolation:isolate}
+.torn::before{content:"";position:absolute;inset:0;background:var(--bg,var(--paper));filter:url(#rough);z-index:-1;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.note{--bg:var(--yellow);color:var(--ink);padding:1rem 1.1rem 1.2rem;font-family:var(--hand);font-size:1.7rem;line-height:1.15;box-shadow:0 10px 22px rgba(0,0,0,.45);background:var(--bg)}
+.note.pink{--bg:var(--pink)} .note.blue{--bg:var(--blue)} .note.lilac{--bg:var(--lilac)}
+.tape{position:relative}
+.tape::after{content:"";position:absolute;top:-12px;left:50%;width:86px;height:26px;transform:translateX(-50%) rotate(-3deg);background:rgba(231,163,179,.55);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tape.beige::after{background:rgba(236,224,196,.6)}
+.polaroid{background:#f2eee6;padding:.65rem .65rem 0;box-shadow:0 12px 26px rgba(0,0,0,.5);color:var(--ink)}
+.polaroid .pic{aspect-ratio:5/4;overflow:hidden;background:#2a2733}
+.polaroid .pic svg{width:100%;height:100%;display:block}
+.polaroid figcaption{font-family:var(--hand);font-size:1.55rem;text-align:center;padding:.35rem 0 .55rem}
+.r1{transform:rotate(-3deg)} .r2{transform:rotate(2.5deg)} .r3{transform:rotate(-1.5deg)} .r4{transform:rotate(4deg)} .r5{transform:rotate(-5deg)}
+
+/* ---------- hero board ---------- */
+.board{display:grid;grid-template-columns:1.1fr 1fr 1.6fr .5fr;gap:1.6rem 1.8rem;align-items:start;padding:1.5rem 0 3rem}
+.stack{display:grid;gap:1.6rem}
+.deco{display:grid;gap:2rem;justify-items:center;padding-top:1rem}
+
+.vinyl{width:118px;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle,#e2c9a6 0 16%,#151417 17% 19%,transparent 20%),repeating-radial-gradient(circle,#1b1a1f 0 2px,#0f0e12 3px 4px);
+  box-shadow:0 8px 20px rgba(0,0,0,.6), inset 0 0 0 1px #333;position:relative;animation:spin 3.2s linear infinite;animation-play-state:paused}
+.vinyl::before{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent 40%,transparent 60%,rgba(255,255,255,.08))}
+.vinyl::after{content:"";position:absolute;inset:47%;border-radius:50%;background:#18171d}
+.cassette{width:150px;background:#2b2932;border-radius:8px;padding:10px;box-shadow:0 8px 20px rgba(0,0,0,.6);transform:rotate(4deg)}
+.cassette .lbl{background:var(--pink);border-radius:4px;padding:4px 6px 8px;color:var(--ink);font-family:var(--hand);font-size:1.1rem;text-align:center}
+.cassette .win{margin:4px auto 0;width:78%;height:26px;background:#1a1920;border-radius:13px;display:flex;justify-content:space-between;align-items:center;padding:0 8px}
+.reel{width:16px;height:16px;border-radius:50%;border:3px dotted #ddd;animation:spin 1.6s linear infinite;animation-play-state:paused}
+body.playing .vinyl,body.playing .reel{animation-play-state:running}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- player ---------- */
+.player{--bg:var(--paper);color:var(--ink);padding:1.6rem 1.8rem 1.4rem}
+.player .frame{position:absolute;inset:12px;border:2px solid var(--ink);border-radius:3px 6px 2px 5px;pointer-events:none;opacity:.85}
+.player .frame::after{content:"";position:absolute;inset:4px -3px -2px 3px;border:1px solid var(--ink);opacity:.5;border-radius:6px 2px 5px 3px}
+.ptop{display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:var(--hand);font-size:1.6rem;color:var(--ink)} .brand b{color:var(--accent)} .brand i{font-style:normal;color:var(--ink-soft)}
+.heart svg{width:30px;height:30px}
+.heart.on path{fill:var(--accent);stroke:var(--accent)}
+.ptitle{font-family:var(--hand);font-size:2.6rem;line-height:1.05;margin-top:.3rem;display:inline-block;position:relative}
+.ptitle::after{content:"";position:absolute;left:0;bottom:-2px;width:55%;height:3px;border-radius:3px;background:var(--accent)}
+.pmeta{color:var(--ink-soft);margin-top:.35rem}
+.wave{position:relative;height:84px;margin:1.1rem 0 .3rem;cursor:pointer;touch-action:none}
+.wave svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.wave .back path{stroke:var(--line)} .wave .front path{stroke:var(--ink)}
+.wave path{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.wave .head{position:absolute;top:50%;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--accent);border:2px solid var(--ink);left:0}
+.times{display:flex;justify-content:space-between;font-size:1rem;color:var(--ink-soft)}
+.controls{display:flex;justify-content:space-between;align-items:center;margin:.7rem .2rem .5rem}
+.controls button svg{width:30px;height:30px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.controls button.on svg{stroke:var(--accent)}
+.controls .play{width:74px;height:74px;border:2.5px solid var(--ink);border-radius:50% 48% 52% 50%;display:grid;place-items:center}
+.controls .play svg{width:32px;height:32px}
+.vol{display:flex;align-items:center;gap:.7rem}
+.vol svg{width:26px;height:26px;stroke:var(--ink);fill:none;stroke-width:2;stroke-linecap:round}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:3px;background:var(--ink);border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);border:2px solid var(--ink)}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--ink)}
+.status{font-size:1rem;color:var(--ink-soft);min-height:1.3em;margin-top:.5rem;text-align:center}
+
+/* ---------- sections ---------- */
+section.block{padding:3.5rem 0 1rem}
+.h{font-family:var(--hand);font-size:3.2rem;color:#f1ecf7;display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .7rem;margin-bottom:1.6rem}
+.h svg{width:34px;height:34px;stroke:var(--accent);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;align-self:center}
+.h small{font-family:var(--body);font-size:1.1rem;color:#8f899c}
+
+.tracklist{--bg:var(--paper);color:var(--ink);padding:1.4rem 1.6rem 1.6rem 3.4rem;max-width:640px}
+.tracklist::before{background:repeating-linear-gradient(transparent 0 2.35rem,#c9d6e6 2.35rem calc(2.35rem + 1px)) 0 1.4rem/100% 100% no-repeat,var(--paper)}
+.tracklist::after{content:"";position:absolute;top:6px;bottom:6px;left:2.4rem;width:2px;background:#e2a2ae}
+.tracklist ol{list-style:none;padding:0}
+.tracklist li button{display:flex;width:100%;justify-content:space-between;align-items:center;height:2.36rem;font-family:var(--hand);font-size:1.8rem;color:var(--ink);text-align:left}
+.tracklist li button span:last-child{font-family:var(--body);font-size:1rem;color:var(--ink-soft)}
+.tracklist li.active button span:first-child::before{content:"▸ ";color:var(--accent)}
+.tracklist li.soon button{opacity:.45;cursor:default}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2.2rem 1.8rem}
+.vcard{--bg:var(--blue);color:var(--ink);padding:1rem 1rem 1.2rem}
+.vcard.pink{--bg:var(--pink)}
+.vcard .screen{aspect-ratio:16/10;background:#1c1b22;border-radius:6px;display:grid;place-items:center;overflow:hidden;position:relative;margin:.5rem 0 .6rem}
+.vcard .screen svg.scene{position:absolute;inset:0;width:100%;height:100%}
+.vcard .screen .pbtn{width:48px;height:48px;border-radius:50%;background:rgba(20,19,24,.75);display:grid;place-items:center;position:relative}
+.vcard .screen .pbtn::after{content:"";border-left:14px solid #eee;border-top:9px solid transparent;border-bottom:9px solid transparent;margin-left:4px}
+.label{font-family:var(--body);font-size:1.05rem;display:flex;align-items:center;gap:.4rem}
+.label svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:2}
+.vcard p{font-family:var(--hand);font-size:1.6rem;line-height:1.1}
+
+.ideas{display:flex;flex-wrap:wrap;gap:2rem 1.8rem;align-items:flex-start}
+.ideas .note{width:min(240px,100%);min-height:170px}
+.about{--bg:var(--paper);color:var(--ink);max-width:720px;padding:2rem 2.2rem;font-size:1.25rem}
+.about p+p{margin-top:.8rem}
+.about .sign{font-family:var(--hand);font-size:2.2rem;margin-top:1rem}
+.links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.links a{font-family:var(--hand);font-size:1.6rem;padding:.1rem .9rem;border:2px solid var(--ink);border-radius:20px 14px 22px 16px;text-decoration:none}
+.links a:hover{background:var(--yellow)}
+footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1.5rem;color:#8f899c}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .board{grid-template-columns:1fr 1fr}
+  .player{grid-column:1/-1;order:-1}
+  .deco{grid-column:1/-1;display:flex;justify-content:center;gap:3rem;padding:0}
+}
+@media (max-width:560px){
+  body{font-size:1.05rem}
+  .logo{font-size:2.6rem}
+  nav{gap:.9rem}
+  nav a{font-size:1.5rem}
+  .board .polaroid,.board .note{max-width:300px;justify-self:center;width:100%}
+  .board{grid-template-columns:1fr;gap:2rem}
+  .player{padding:1.4rem 1.2rem 1.2rem}
+  .ptitle{font-size:2.2rem}
+  .controls .play{width:62px;height:62px}
+  .tracklist{padding-left:2.8rem}
+  .tracklist::after{left:1.9rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .vinyl,.reel{animation:none}
+}
 </style>
 </head>
 <body>
-  <main>
-    <h1 aria-label="fobia"><span>f</span><span>o</span><span>b</span><span>i</span><span>a</span></h1>
-    <p>A site about my projects is coming soon.</p>
-  </main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="7"/></filter>
+</svg>
+
+<div class="wrap">
+<header>
+  <a class="logo" href="#">fobia.me<sup>*</sup>
+    <svg viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true"><path d="M2 11 C40 4, 90 6, 150 5 S190 4,198 3 M10 14 C60 9,120 10,170 8" fill="none" stroke="#f1ecf7" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </a>
+  <nav>
+    <a href="#ideas">Ideas</a><a href="#photos">Photos</a><a href="#music">Music</a><a href="#videos">Videos</a><a class="circle" href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+<div class="board">
+  <div class="stack">
+    <figure class="polaroid r1 tape beige"><div class="pic" data-scene="city"></div><figcaption>somewhere, nowhere ♡</figcaption></figure>
+    <div class="note pink r2">random<br>thoughts ✶</div>
+  </div>
+  <div class="stack" style="padding-top:1.5rem">
+    <div class="note r5">half-finished<br>tracks ♫</div>
+    <figure class="polaroid r2"><div class="pic" data-scene="rain"></div><figcaption>rainy days &amp; overthinking</figcaption></figure>
+  </div>
+
+  <article class="player torn" aria-label="Music player">
+    <span class="frame"></span>
+    <div class="ptop">
+      <span class="brand">fobia<b>.</b><i>me</i></span>
+      <button class="heart" id="heart" aria-label="Like this track" aria-pressed="false"><svg viewBox="0 0 32 32"><path d="M16 27C6 19 3 14 5 9.5 7 5 13 5 16 10c3-5 9-5 11-.5 2 4.5-1 9.5-11 17.5z" fill="none" stroke="#25222b" stroke-width="2" stroke-linejoin="round"/></svg></button>
+    </div>
+    <h2 class="ptitle" id="ptitle">Warp Zone</h2>
+    <div class="pmeta">fobia · <span id="pdur">--:--</span></div>
+    <div class="wave" id="wave" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+      <svg class="back" preserveAspectRatio="none"><path/></svg>
+      <svg class="front" preserveAspectRatio="none"><path/></svg>
+      <span class="head" id="head"></span>
+    </div>
+    <div class="times"><span id="tcur">0:00</span><span id="ttot">--:--</span></div>
+    <div class="controls">
+      <button id="shuffle" aria-label="Shuffle" aria-pressed="false"><svg viewBox="0 0 32 32"><path d="M4 9h5c6 0 8 14 14 14h5M4 23h5c3 0 4.5-3 6-6m3-5c1.5-2 3-3 5-3h5M24 5l4 4-4 4M24 19l4 4-4 4"/></svg></button>
+      <button id="prev" aria-label="Previous track"><svg viewBox="0 0 32 32"><path d="M8 7v18M25 7 12 16l13 9z"/></svg></button>
+      <button class="play" id="play" aria-label="Play"><svg viewBox="0 0 32 32" id="playIcon"><path d="M10 6l17 10-17 10z" fill="#25222b"/></svg></button>
+      <button id="next" aria-label="Next track"><svg viewBox="0 0 32 32"><path d="M24 7v18M7 7l13 9-13 9z"/></svg></button>
+      <button id="repeat" aria-label="Repeat" aria-pressed="false"><svg viewBox="0 0 32 32"><path d="M6 15v-2a5 5 0 0 1 5-5h15M22 4l4 4-4 4M26 17v2a5 5 0 0 1-5 5H6M10 28l-4-4 4-4"/></svg></button>
+    </div>
+    <div class="vol">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12h5l7-6v20l-7-6H4zM21 11c2 3 2 7 0 10M25 7c4 5 4 13 0 18"/></svg>
+      <input type="range" id="vol" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+    </div>
+    <p class="status" id="status" aria-live="polite"></p>
+    <audio id="audio" preload="metadata"></audio>
+  </article>
+
+  <div class="deco" aria-hidden="true">
+    <div class="vinyl"></div>
+    <div class="cassette"><div class="lbl">fobia.me<div class="win"><span class="reel"></span><span class="reel"></span></div></div></div>
+  </div>
+</div>
+
+<section class="block" id="music">
+  <h2 class="h"><svg viewBox="0 0 32 32"><path d="M12 24V7l14-3v17M12 24a4 3 0 1 1-8 0 4 3 0 1 1 8 0zM26 21a4 3 0 1 1-8 0 4 3 0 1 1 8 0z"/></svg>Music <small>instrumentals, sketches, late-night loops</small></h2>
+  <div class="tracklist torn r3"><ol id="tracklist"></ol></div>
+</section>
+
+<section class="block" id="photos">
+  <h2 class="h"><svg viewBox="0 0 32 32"><path d="M4 10h6l2-3h8l2 3h6v15H4z"/><circle cx="16" cy="17" r="5"/></svg>Photos <small>moments in between · first rolls coming soon</small></h2>
+  <div class="grid">
+    <figure class="polaroid r2 tape"><div class="pic" data-scene="window"></div><figcaption>quiet corners ♡</figcaption></figure>
+    <figure class="polaroid r1"><div class="pic" data-scene="clouds"></div><figcaption>light leaks &amp; lazy afternoons</figcaption></figure>
+    <figure class="polaroid r4 tape beige"><div class="pic" data-scene="lights"></div><figcaption>tiny lights, big maybe</figcaption></figure>
+    <figure class="polaroid r3"><div class="pic" data-scene="moon"></div><figcaption>3 a.m. again</figcaption></figure>
+  </div>
+</section>
+
+<section class="block" id="videos">
+  <h2 class="h"><svg viewBox="0 0 32 32"><rect x="4" y="9" width="18" height="15" rx="2"/><path d="M22 14l7-4v13l-7-4"/></svg>Videos <small>short clips, long feelings</small></h2>
+  <div class="grid">
+    <div class="vcard torn pink r1"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="clouds"></svg><span class="pbtn"></span></div><p>blossom wind · soon</p></div>
+    <div class="vcard torn r2"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="stairs"></svg><span class="pbtn"></span></div><p>fragment #6 · soon</p></div>
+    <div class="vcard torn pink r5"><span class="label"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8l6 4-6 4z"/></svg>short video</span><div class="screen"><svg class="scene" data-scene="rain"></svg><span class="pbtn"></span></div><p>wet asphalt · soon</p></div>
+  </div>
+</section>
+
+<section class="block" id="ideas">
+  <h2 class="h"><svg viewBox="0 0 32 32"><path d="M12 22h8M13 26h6M16 4a8 8 0 0 0-5 14c1 1 1 2 1 4h8c0-2 0-3 1-4a8 8 0 0 0-5-14z"/></svg>Ideas <small>half-finished on purpose</small></h2>
+  <div class="ideas">
+    <div class="note r1 tape">a song that sounds like a loading screen ✶</div>
+    <div class="note blue r4">what if a game level was built from a track's waveform?</div>
+    <div class="note pink r2">photo series: places at 3 a.m. ♡</div>
+    <div class="note lilac r5 tape beige">don't overthink it.<br>save for later ☆</div>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <h2 class="h"><svg viewBox="0 0 32 32"><circle cx="16" cy="11" r="5"/><path d="M6 28c1-6 5-9 10-9s9 3 10 9"/></svg>About</h2>
+  <div class="about torn r3">
+    <p>Hi, I'm fobia. I make music, take photos, cut short videos, build small games and collect more ideas than I'll ever finish.</p>
+    <p>This board is where all of it ends up: sketches, loops, fragments and the occasional finished thing.</p>
+    <div class="links"><a href="https://github.com/Impulse201" rel="noopener">GitHub</a></div>
+    <div class="sign">— fobia</div>
+  </div>
+</section>
+</main>
+
+<footer>made at night · fobia.me</footer>
+</div>
+
+<script>
+/* ---------- tracks: add new ones here ---------- */
+const TRACKS = [
+  { title: "Warp Zone", file: "music/warp-zone.mp3", tag: "instrumental" },
+];
+
+/* ---------- doodle scenes for photo placeholders ---------- */
+function rnd(seed){ return () => (seed = (seed * 16807) % 2147483647) / 2147483647; }
+let gid = 0;
+const SCENES = {
+  city(r,g){ let s=`<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2550"/><stop offset="1" stop-color="#5a4a7c"/></linearGradient></defs><rect width="200" height="160" fill="url(#${g})"/>`;
+    for(let i=0;i<22;i++) s+=`<circle cx="${r()*200}" cy="${r()*60}" r="${r()*1.2+.3}" fill="#fff" opacity=".7"/>`;
+    let x=0; while(x<200){ const w=14+r()*22, h=50+r()*70; s+=`<rect x="${x}" y="${160-h}" width="${w}" height="${h}" fill="#1a1630"/>`;
+      for(let wy=160-h+6; wy<154; wy+=9) for(let wx=x+3; wx<x+w-4; wx+=6) if(r()>.62) s+=`<rect x="${wx}" y="${wy}" width="3" height="4" fill="#f3cf86" opacity="${.5+r()*.5}"/>`;
+      x+=w+1; } return s; },
+  rain(r,g){ let s=`<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4256"/><stop offset="1" stop-color="#1c2030"/></linearGradient><radialGradient id="${g}l"><stop offset="0" stop-color="#f6d48f" stop-opacity=".8"/><stop offset="1" stop-color="#f6d48f" stop-opacity="0"/></radialGradient></defs><rect width="200" height="160" fill="url(#${g})"/>
+    <rect x="0" y="40" width="40" height="120" fill="#151826"/><rect x="160" y="30" width="40" height="130" fill="#151826"/><path d="M40 160 L95 70 L105 70 L160 160z" fill="#2a3040"/>
+    <circle cx="140" cy="62" r="34" fill="url(#${g}l)"/><path d="M140 62v98" stroke="#0e1018" stroke-width="2"/><path d="M60 160 L98 80 M140 160 L102 80" stroke="#f6d48f" stroke-opacity=".18" stroke-width="3"/>`;
+    for(let i=0;i<70;i++){const x=r()*220,y=r()*160; s+=`<path d="M${x} ${y} l-4 10" stroke="#c8d3ea" stroke-opacity=".45" stroke-width="1"/>`;} return s; },
+  clouds(r,g){ let s=`<defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b78a8"/><stop offset=".7" stop-color="#e4a3a8"/><stop offset="1" stop-color="#f1c890"/></linearGradient></defs><rect width="200" height="160" fill="url(#${g})"/>`;
+    for(let c=0;c<4;c++){const cx=r()*200, cy=30+r()*70; for(let i=0;i<6;i++) s+=`<circle cx="${cx+(i-3)*12+r()*6}" cy="${cy-r()*12}" r="${12+r()*10}" fill="#f6eef0" opacity=".85"/>`;}
+    s+=`<path d="M0 160 L0 138 Q20 128 30 138 T60 132 T95 140 T130 128 T170 138 T200 130 L200 160z" fill="#2c2a3a"/>`; return s; },
+  window(){ return `<rect width="200" height="160" fill="#1c1a24"/><rect x="40" y="18" width="120" height="96" fill="#8a9bc0"/><rect x="40" y="18" width="120" height="96" fill="none" stroke="#2e2b38" stroke-width="6"/><path d="M100 18v96M40 66h120" stroke="#2e2b38" stroke-width="4"/>
+    <path d="M30 124h140" stroke="#3b3746" stroke-width="10"/><path d="M88 118h24l-3 -16h-18z" fill="#c07a5b"/>
+    <path d="M100 102 C90 80 74 78 70 84 C80 86 92 92 100 102 C104 84 118 72 128 76 C118 80 108 90 100 102 C98 86 100 70 108 62" fill="#4d7a5a" stroke="#3b6148" stroke-width="2"/>`; },
+  lights(r){ let s=`<rect width="200" height="160" fill="#16151c"/><path d="M0 40 Q100 80 200 30" stroke="#3b3743" stroke-width="1.5" fill="none"/>`;
+    for(let i=0;i<14;i++){const t=i/13,x=t*200,y=40*(1-t)*(1-t)+2*(1-t)*t*80+t*t*30; s+=`<circle cx="${x}" cy="${y+6}" r="${7+r()*6}" fill="#f6c97a" opacity=".22"/><circle cx="${x}" cy="${y+6}" r="2.5" fill="#ffe3a8"/>`;}
+    for(let i=0;i<9;i++) s+=`<circle cx="${r()*200}" cy="${90+r()*60}" r="${10+r()*14}" fill="#e7a3b3" opacity="${.08+r()*.1}"/>`; return s; },
+  moon(r){ let s=`<rect width="200" height="160" fill="#14152a"/>`; for(let i=0;i<30;i++) s+=`<circle cx="${r()*200}" cy="${r()*100}" r="${r()*1.1+.3}" fill="#fff" opacity=".7"/>`;
+    s+=`<circle cx="140" cy="45" r="18" fill="#f2e6c4"/><circle cx="147" cy="40" r="16" fill="#14152a"/><rect y="105" width="200" height="55" fill="#1e2242"/>`;
+    for(let i=0;i<8;i++) s+=`<path d="M${120+r()*30} ${110+i*6} h${10+r()*20}" stroke="#f2e6c4" stroke-opacity="${.5-i*.05}" stroke-width="1.5"/>`; return s; },
+  stairs(){ let s=`<rect width="200" height="160" fill="#2a2b30"/>`; for(let i=0;i<9;i++) s+=`<path d="M${40+i*16} ${150-i*14} h16 v-14" stroke="#9a9ca6" stroke-width="2" fill="none"/>`;
+    return s+`<path d="M0 0 L120 0 L40 160 L0 160z" fill="#000" opacity=".35"/>`; },
+};
+document.querySelectorAll("[data-scene]").forEach((el,i)=>{
+  const svg = SCENES[el.dataset.scene](rnd(1234+i*97), "g"+(gid++));
+  if(el.tagName.toLowerCase()==="svg"){ el.setAttribute("viewBox","0 0 200 160"); el.setAttribute("preserveAspectRatio","xMidYMid slice"); el.innerHTML=svg; }
+  else el.innerHTML = `<svg viewBox="0 0 200 160" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${svg}</svg>`;
+});
+
+/* ---------- player ---------- */
+const $ = id => document.getElementById(id);
+const audio=$("audio"), wave=$("wave"), head=$("head"), status=$("status");
+const front=wave.querySelector(".front"), paths=wave.querySelectorAll("path");
+let idx=0, shuffle=false, repeat=false;
+const fmt = s => isFinite(s) ? `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}` : "--:--";
+const PLAY='<path d="M10 6l17 10-17 10z" fill="#25222b"/>';
+const PAUSE='<rect x="9" y="7" width="5" height="18" rx="2" fill="#b9a8dc" stroke="#25222b" stroke-width="2"/><rect x="18" y="7" width="5" height="18" rx="2" fill="#e7a3b3" stroke="#25222b" stroke-width="2"/>';
+
+function drawWave(peaks){
+  const W=600,H=84,mid=H/2,step=W/(peaks.length-1); let d=`M0 ${mid}`;
+  peaks.forEach((p,i)=>{ const y = mid + (i%2?1:-1)*Math.max(2,p*mid*.95); d+=` L${(i*step).toFixed(1)} ${y.toFixed(1)}`; });
+  wave.querySelectorAll("svg").forEach(s=>s.setAttribute("viewBox",`0 0 ${W} ${H}`));
+  paths.forEach(p=>p.setAttribute("d",d));
+}
+function fakePeaks(seed){ const r=rnd(seed); return Array.from({length:120},(_,i)=>{const env=Math.sin(Math.PI*i/119)**.6; return env*(.25+r()*.75);}); }
+async function realPeaks(url){
+  try{ const res=await fetch(url); if(!res.ok) return null; const buf=await res.arrayBuffer();
+    const ctx=new (window.AudioContext||window.webkitAudioContext)(); const ab=await ctx.decodeAudioData(buf); ctx.close();
+    const ch=ab.getChannelData(0), n=120, block=Math.floor(ch.length/n), out=[];
+    for(let i=0;i<n;i++){ let m=0; for(let j=0;j<block;j+=32){ const v=Math.abs(ch[i*block+j]); if(v>m)m=v; } out.push(m); }
+    const mx=Math.max(...out)||1; return out.map(v=>v/mx);
+  }catch(e){ return null; }
+}
+function setProgress(p){
+  front.style.clipPath=`inset(0 ${100-p*100}% 0 0)`; head.style.left=`${p*100}%`;
+  wave.setAttribute("aria-valuenow",Math.round(p*100));
+}
+function renderList(){
+  $("tracklist").innerHTML = TRACKS.map((t,i)=>`<li class="${i===idx?'active':''}"><button data-i="${i}"><span>${t.title}</span><span>${t.tag||""}</span></button></li>`).join("")
+   + `<li class="soon"><button disabled><span>untitled_04</span><span>soon</span></button></li>`;
+  $("tracklist").querySelectorAll("button[data-i]").forEach(b=>b.onclick=()=>{ if(+b.dataset.i!==idx) load(+b.dataset.i); playNow(); document.querySelector(".player").scrollIntoView({behavior:"smooth",block:"center"}); });
+}
+function load(i){
+  idx=(i+TRACKS.length)%TRACKS.length; const t=TRACKS[idx], my=idx;
+  audio.src=t.file; $("ptitle").textContent=t.title; status.textContent=""; setProgress(0);
+  $("tcur").textContent="0:00"; $("ttot").textContent=$("pdur").textContent="--:--";
+  drawWave(fakePeaks(idx*31+7)); realPeaks(t.file).then(p=>{ if(p && idx===my) drawWave(p); });
+  renderList();
+}
+function playNow(){ audio.play().catch(()=>{}); }
+$("play").onclick=()=> audio.paused ? playNow() : audio.pause();
+$("next").onclick=()=>{ load(shuffle? Math.floor(Math.random()*TRACKS.length) : idx+1); playNow(); };
+$("prev").onclick=()=>{ if(audio.currentTime>3){audio.currentTime=0;return;} load(idx-1); playNow(); };
+const toggle=(btn,get,set)=>btn.onclick=()=>{ set(!get()); btn.classList.toggle("on",get()); btn.setAttribute("aria-pressed",get()); };
+toggle($("shuffle"),()=>shuffle,v=>shuffle=v); toggle($("repeat"),()=>repeat,v=>repeat=v);
+$("heart").onclick=e=>{ const h=e.currentTarget; h.classList.toggle("on"); h.setAttribute("aria-pressed",h.classList.contains("on")); };
+$("vol").oninput=e=>audio.volume=e.target.value; audio.volume=.8;
+
+audio.addEventListener("play",()=>{document.body.classList.add("playing");$("playIcon").innerHTML=PAUSE;$("play").setAttribute("aria-label","Pause");});
+audio.addEventListener("pause",()=>{document.body.classList.remove("playing");$("playIcon").innerHTML=PLAY;$("play").setAttribute("aria-label","Play");});
+audio.addEventListener("loadedmetadata",()=>{ $("ttot").textContent=$("pdur").textContent=fmt(audio.duration); });
+audio.addEventListener("timeupdate",()=>{ $("tcur").textContent=fmt(audio.currentTime); if(audio.duration) setProgress(audio.currentTime/audio.duration); });
+audio.addEventListener("ended",()=>{ if(repeat){audio.currentTime=0;playNow();} else if(TRACKS.length>1) $("next").onclick(); });
+audio.addEventListener("error",()=>{ if(audio.getAttribute("src")) status.textContent="This track is on its way — check back soon."; });
+
+function seekFrom(e){ const r=wave.getBoundingClientRect(); const p=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)); if(audio.duration){audio.currentTime=p*audio.duration; setProgress(p);} }
+let drag=false;
+wave.addEventListener("pointerdown",e=>{drag=true;wave.setPointerCapture(e.pointerId);seekFrom(e);});
+wave.addEventListener("pointermove",e=>drag&&seekFrom(e));
+wave.addEventListener("pointerup",()=>drag=false);
+wave.addEventListener("keydown",e=>{ if(!audio.duration)return; if(e.key==="ArrowRight")audio.currentTime+=5; if(e.key==="ArrowLeft")audio.currentTime-=5; });
+
+load(0);
+</script>
 </body>
 </html>
