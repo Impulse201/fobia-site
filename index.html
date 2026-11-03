@@ -42,6 +42,10 @@ nav{display:flex;gap:clamp(.8rem,3vw,2.4rem);flex-wrap:wrap}
 nav a{font-family:var(--hand);font-size:2rem;text-decoration:none;position:relative}
 nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:3px;background:var(--accent);border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform .25s}
 nav a:hover::after{transform:scaleX(1)}
+nav a.donate{--bg:var(--yellow);background:var(--yellow);color:var(--ink);padding:0 .8rem;transform:rotate(-4deg);box-shadow:0 6px 14px rgba(0,0,0,.45);transition:transform .2s}
+nav a.donate::after{display:none}
+nav a.donate:hover{transform:rotate(3deg) scale(1.08)}
+nav{align-items:center}
 nav a.circle{border:2px solid var(--chalk);border-radius:50% 45% 52% 48%;padding:0 .7rem}
 
 /* ---------- paper primitives ---------- */
@@ -177,6 +181,7 @@ footer{text-align:center;padding:4rem 0 3rem;font-family:var(--hand);font-size:1
   </a>
   <nav>
     <a href="#ideas">Ideas</a><a href="#photos">Photos</a><a href="#music">Music</a><a href="#videos">Videos</a><a class="circle" href="#about">About</a>
+    <a class="donate" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener" title="support the artist ♡">Donate ♡</a>
   </nav>
 </header>
 
